@@ -2,7 +2,7 @@
 
 # include "printf.h"
 
-void    print(const char type, va_list *args, int *printed_chars)
+static void    print_csdi%(const char type, va_list *args, int *printed_chars)
 {
     if (type == 'c')
     {
@@ -11,25 +11,44 @@ void    print(const char type, va_list *args, int *printed_chars)
     }
     else if (type == 's')
         putstr_fd(va_arg(args, char *), 1, printed_chars);
-    else if (type == 'p')
-        puthex_fd(va_arg(args, unsigned long), 0, printed_chars);
     else if (type == 'd')
         putnbr_fd(va_arg(args, int), 1, printed_chars);
     else if (type == 'i')
         putnbr_fd(va_arg(args, int), 1, printed_chars);
     else if (type == 'u')
         putnbr_fd(va_arg(args, unsigned int), 1, printed_chars);
-    else if (type == 'x')
-        puthex_fd(va_arg(args, unsigned long), 0, printed_chars);
-    else if (type == 'X')
-        puthex_fd(va_arg(args, unsigned long), 1, printed_chars);
     else if (type == '%')
     {
         ft_putchar_fd('%', 1);
         (*printed_chars)++;
     }
+    else
+        print_hex(type, args, printed_chars);
+//    va_arg(args, void *);
+//    Si recibe un % que no es valido, se salta un argumento?
 }
 
+static void    print_hex(const char type, va_list *args, int *printed_chars)
+{
+    if (type == 'p')
+    {
+        ft_putstr_fd("0x", 1);
+        (*printed_chars) += 2;
+        puthex_fd(va_arg(args, unsigned long), 0, printed_chars);
+    }
+    else if (type == 'x')
+    {
+        ft_putstr_fd("0x", 1);
+        (*printed_chars) += 2;
+        puthex_fd(va_arg(args, unsigned long), 0, printed_chars);
+    }
+    else if (type == 'X')
+    {
+        ft_putstr_fd("0X", 1);
+        (*printed_chars) += 2;
+        puthex_fd(va_arg(args, unsigned long), 1, printed_chars);
+    }
+}
 
 int ft_printf(const char *input, ...)
 {
@@ -46,20 +65,21 @@ int ft_printf(const char *input, ...)
         {
             i++;
             print(input[i], &args, &printed_chars);
-            i++;
         }
+        else if (input[i] == '%' && !input[i + 1])
+            break ;
         else
         {
             ft_putchar_fd(input[i], 1);
             printed_chars++;
-            i++;
         }
+        i++;
     }
     va_end(args);
     return (printed_chars);
 }
 
-
+/*
 
 #include <stdio.h>
 
@@ -128,3 +148,5 @@ int main(void)
 
     return 0;
 }
+    
+*/
