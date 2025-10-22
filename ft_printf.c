@@ -6,7 +6,7 @@
 /*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:29:18 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/10/22 11:06:17 by jmiguele         ###   ########.fr       */
+/*   Updated: 2025/10/22 12:59:37 by jmiguele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int	ft_printf(const char *input, ...)
 	return (printed_chars);
 }
 
-/*
-
 #include <stdio.h>
 
 int	main(void)
@@ -147,15 +145,13 @@ int	main(void)
 	countft = ft_printf("ft_printf: [%%]\n");
 	countstdio = printf("printf:    [%%]\n");
 	printf("countft: %d | countstdio: %d\n\n", countft, countstdio);
-	ft_printf("\n\n\n")
-	countft = ft_printf("ft_printf: Char: %c | String: %s | Ptr: %p | Dec:
-			%d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | Porcentaje: %%\n",
-			c, str, ptr, num, num, unum, unum, unum);
-	countstdio = printf("printf:    Char: %c | String: %s | Ptr: %p | Dec:
-			%d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | Porcentaje: %%\n",
-			c, str, ptr, num, num, unum, unum, unum);
-	printf("\ncountft: %d | countstdio: %d\n", countft, countstdio);
+	ft_printf("\n\n\n");
+	/* 	countft = ft_printf("ft_printf: Char: %c | String: %s | Ptr: %p | Dec:
+				%d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | Porcentaje:
+				%%\n ", c, str, ptr, num, num, unum, unum, unum);
+		countstdio = printf("printf:    Char: %c | String: %s | Ptr: %p | Dec:
+				%d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | Porcentaje:
+				%%\n ", c, str, ptr, num, num, unum, unum, unum);
+		printf("\ncountft: %d | countstdio: %d\n", countft, countstdio); */
 	return (0);
 }
-
-*/

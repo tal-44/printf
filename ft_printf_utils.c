@@ -6,7 +6,7 @@
 /*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:29:32 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/10/22 11:09:59 by jmiguele         ###   ########.fr       */
+/*   Updated: 2025/10/22 12:49:24 by jmiguele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	puthex_fd(unsigned long num, const char format, int *printed_chars)
 {
 	char	*cadena_hex;
 
-	if (num == (NULL))
+	if (!num)
 	{
 		putstr_fd("(null)", 1, printed_chars);
 		return ;

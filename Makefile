@@ -6,7 +6,7 @@
 #    By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 11:20:49 by jmiguele          #+#    #+#              #
-#    Updated: 2025/10/22 12:12:34 by jmiguele         ###   ########.fr        #
+#    Updated: 2025/10/22 12:45:56 by jmiguele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ LIBFTSRCS = libft/ft_isalpha.c \
 
 
 SRCS = ft_printf.c \
-	   printf_utils.c
+	   ft_printf_utils.c
 
 OBJSLIBFT = $(LIBFTSRCS:.c=.o)
 
