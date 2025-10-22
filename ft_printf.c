@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void	print(const char type, va_list args, int *printed_chars)
+static void print(const char type, va_list args, int *printed_chars)
 {
 	if (type == 'c')
 	{
@@ -23,70 +23,61 @@ static void	print(const char type, va_list args, int *printed_chars)
 		putstr_fd(va_arg(args, char *), 1, printed_chars);
 	else if (type == 'd' || type == 'i')
 		putnbr_fd(va_arg(args, int), 1, printed_chars);
-	else if (type == 'i')
-		putnbr_fd(va_arg(args, int), 1, printed_chars);
 	else if (type == 'u')
-		putnbr_fd(va_arg(args, unsigned int), 1, printed_chars);
+		putunsnbr_fd(va_arg(args, unsigned int), 1, printed_chars);
+	else
+		print_hex(type, args, printed_chars);
+}
+
+void print_hex(const char type, va_list args, int *printed_chars)
+{
+	unsigned long ptr_value;
+
+	if (type == 'p')
+	{
+		ptr_value = va_arg(args, unsigned long);
+		if (ptr_value == (NULL))
+			putstr_fd("(nil)", 1, printed_chars);
+		else
+		{
+			putstr_fd("0x", 1, printed_chars);
+			puthex_fd(ptr_value, 0, printed_chars);
+		}
+	}
+	else if (type == 'x')
+		puthex_fd(va_arg(args, unsigned int), 0, printed_chars);
+	else if (type == 'X')
+		puthex_fd(va_arg(args, unsigned int), 1, printed_chars);
 	else if (type == '%')
 	{
 		ft_putchar_fd('%', 1);
 		(*printed_chars)++;
 	}
-	else if (type == 'p' || type == 'x' || type == 'X')
-	{
-		(*printed_chars) += 2;
-		puthex_fd(va_arg(args, unsigned long), 0, printed_chars);
-	}
-	//    va_arg(args, void *);
-	//    Si recibe un % que no es valido, se salta un argumento?
 }
 
-/*/
-static void	print_hex(const char type, va_list args, int *printed_chars)
+int ft_printf(const char *input, ...)
 {
-	ft_putstr_fd("0x", 1);
-	if (type == 'p')
-	{
-		(*printed_chars) += 2;
-		puthex_fd(va_arg(args, unsigned long), 0, printed_chars);
-	}
-	else if (type == 'x')
-	{
-		(*printed_chars) += 2;
-		puthex_fd(va_arg(args, unsigned long), 0, printed_chars);
-	}
-	else if (type == 'X')
-	{
-		(*printed_chars) += 2;
-		puthex_fd(va_arg(args, unsigned long), 1, printed_chars);
-	}
-}
-*/
-
-int	ft_printf(const char *input, ...)
-{
-	va_list	args;
-	int		i;
-	int		printed_chars;
+	va_list args;
+	int i;
+	int printed_chars;
 
 	va_start(args, input);
 	printed_chars = 0;
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '%' && input[i + 1])
-		{
-			i++;
-			print(input[i], args, &printed_chars);
-		}
-		else if (input[i] == '%' && !input[i + 1])
-			break ;
-		else
+		if (input[i] != '%')
 		{
 			ft_putchar_fd(input[i], 1);
+			i++;
 			printed_chars++;
+			continue;
 		}
-		i++;
+		if (input[++i])
+		{
+			print(input[i], args, &printed_chars);
+			i++;
+		}
 	}
 	va_end(args);
 	return (printed_chars);
@@ -94,15 +85,15 @@ int	ft_printf(const char *input, ...)
 
 #include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	int				num;
-	unsigned int	unum;
-	char			c;
-	char			*str;
-	void			*ptr;
-	int				countft;
-	int				countstdio;
+	int num;
+	unsigned int unum;
+	char c;
+	char *str;
+	void *ptr;
+	int countft;
+	int countstdio;
 
 	num = -42;
 	unum = 42;
@@ -146,12 +137,14 @@ int	main(void)
 	countstdio = printf("printf:    [%%]\n");
 	printf("countft: %d | countstdio: %d\n\n", countft, countstdio);
 	ft_printf("\n\n\n");
-	/* 	countft = ft_printf("ft_printf: Char: %c | String: %s | Ptr: %p | Dec:
-				%d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | Porcentaje:
-				%%\n ", c, str, ptr, num, num, unum, unum, unum);
-		countstdio = printf("printf:    Char: %c | String: %s | Ptr: %p | Dec:
-				%d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | Porcentaje:
-				%%\n ", c, str, ptr, num, num, unum, unum, unum);
-		printf("\ncountft: %d | countstdio: %d\n", countft, countstdio); */
+	countft = ft_printf("ft_printf: Char: %c | String: %s | Ptr: %p | "
+						"Dec: %d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | "
+						"Porcentaje: %%\n",
+						c, str, ptr, num, num, unum, unum, unum);
+	countstdio = printf("printf:    Char: %c | String: %s | Ptr: %p | "
+						"Dec: %d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | "
+						"Porcentaje: %%\n",
+						c, str, ptr, num, num, unum, unum, unum);
+	printf("\ncountft: %d | countstdio: %d\n", countft, countstdio);
 	return (0);
 }

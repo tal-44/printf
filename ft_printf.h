@@ -11,15 +11,17 @@
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#define FT_PRINTF_H
 
-# include "./libft/libft.h"
-# include <stdarg.h>
-# include <unistd.h>
+#include "./libft/libft.h"
+#include <stdarg.h>
+#include <unistd.h>
 
-int		ft_printf(const char *input, ...);
-void	puthex_fd(unsigned long num, const char format, int *printed_chars);
-void	putstr_fd(char *s, int fd, int *printed_chars);
-void	putnbr_fd(int n, int fd, int *printed_chars);
+int ft_printf(const char *input, ...);
+void print_hex(const char type, va_list args, int *printed_chars);
+void puthex_fd(unsigned long num, const char format, int *printed_chars);
+void putstr_fd(char *s, int fd, int *printed_chars);
+void putnbr_fd(int n, int fd, int *printed_chars);
+void putunsnbr_fd(unsigned int num, int fd, int *printed_chars);
 
 #endif
