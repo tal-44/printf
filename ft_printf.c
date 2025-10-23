@@ -6,13 +6,13 @@
 /*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:29:18 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/10/22 12:59:37 by jmiguele         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:02:29 by jmiguele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void print(const char type, va_list args, int *printed_chars)
+static void	print(const char type, va_list args, int *printed_chars)
 {
 	if (type == 'c')
 	{
@@ -29,14 +29,14 @@ static void print(const char type, va_list args, int *printed_chars)
 		print_hex(type, args, printed_chars);
 }
 
-void print_hex(const char type, va_list args, int *printed_chars)
+void	print_hex(const char type, va_list args, int *printed_chars)
 {
-	unsigned long ptr_value;
+	unsigned long	ptr_value;
 
 	if (type == 'p')
 	{
 		ptr_value = va_arg(args, unsigned long);
-		if (ptr_value == (NULL))
+		if (!ptr_value)
 			putstr_fd("(nil)", 1, printed_chars);
 		else
 		{
@@ -55,11 +55,11 @@ void print_hex(const char type, va_list args, int *printed_chars)
 	}
 }
 
-int ft_printf(const char *input, ...)
+int	ft_printf(const char *input, ...)
 {
-	va_list args;
-	int i;
-	int printed_chars;
+	va_list	args;
+	int		i;
+	int		printed_chars;
 
 	va_start(args, input);
 	printed_chars = 0;
@@ -71,7 +71,7 @@ int ft_printf(const char *input, ...)
 			ft_putchar_fd(input[i], 1);
 			i++;
 			printed_chars++;
-			continue;
+			continue ;
 		}
 		if (input[++i])
 		{
@@ -82,18 +82,18 @@ int ft_printf(const char *input, ...)
 	va_end(args);
 	return (printed_chars);
 }
-
+/*
 #include <stdio.h>
 
-int main(void)
+int	main(void)
 {
-	int num;
-	unsigned int unum;
-	char c;
-	char *str;
-	void *ptr;
-	int countft;
-	int countstdio;
+	int				num;
+	unsigned int	unum;
+	char			c;
+	char			*str;
+	void			*ptr;
+	int				countft;
+	int				countstdio;
 
 	num = -42;
 	unum = 42;
@@ -137,14 +137,7 @@ int main(void)
 	countstdio = printf("printf:    [%%]\n");
 	printf("countft: %d | countstdio: %d\n\n", countft, countstdio);
 	ft_printf("\n\n\n");
-	countft = ft_printf("ft_printf: Char: %c | String: %s | Ptr: %p | "
-						"Dec: %d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | "
-						"Porcentaje: %%\n",
-						c, str, ptr, num, num, unum, unum, unum);
-	countstdio = printf("printf:    Char: %c | String: %s | Ptr: %p | "
-						"Dec: %d | Int: %i | Unsigned: %u | Hex: %x | HEX: %X | "
-						"Porcentaje: %%\n",
-						c, str, ptr, num, num, unum, unum, unum);
 	printf("\ncountft: %d | countstdio: %d\n", countft, countstdio);
 	return (0);
 }
+*/

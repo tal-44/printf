@@ -6,7 +6,7 @@
 #    By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 11:20:49 by jmiguele          #+#    #+#              #
-#    Updated: 2025/10/22 12:45:56 by jmiguele         ###   ########.fr        #
+#    Updated: 2025/10/23 11:58:50 by jmiguele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,6 @@ $(NAME): $(OBJS) $(NAMELIBFT)
 
 
 %.o: %.c
-	@echo "Compilando"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
